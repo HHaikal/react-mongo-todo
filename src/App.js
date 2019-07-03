@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAsync } from "react-async";
 
 // components
 import Input from "./input";
@@ -20,15 +21,10 @@ function App() {
         });
     }, []);
 
-    // render twicez
     return (
         <Context.Provider value={{ todos, setTodos }}>
-            <Input addTodo={setTodos} />
-            <ul>
-                {todos.map((todo, i) => (
-                    <List row={todo} key={i} />
-                ))}
-            </ul>
+            <Input />
+            <List />
         </Context.Provider>
     );
 }

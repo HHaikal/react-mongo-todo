@@ -1,21 +1,21 @@
 // @format
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 
-export default function Input(props) {
+import { Context } from "./App";
+
+function Input() {
+    const url = "http://localhost:3000";
+
+    const { setTodos } = useContext(Context);
+
     const handleSubmit = e => {
-        e.preventDefault(); // prevent from submit (reload)
-        const { addTodo } = props;
+        e.preventDefault();
         const input = e.target[0].value;
-
-        const payload = {
-            title: input
-        };
-
-        const url = "http://localhost:3000";
-        axios.post(url + "/todo", payload).then(res => {
-            addTodo(res.data);
+        axios.post(url + "/todo", { title: input }).then(res => {
+            setTodos(res.data);
         });
+        e.target.reset();
     };
 
     return (
@@ -25,3 +25,5 @@ export default function Input(props) {
         </form>
     );
 }
+
+export default Input;
